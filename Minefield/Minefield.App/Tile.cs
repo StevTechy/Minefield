@@ -13,7 +13,8 @@
 
             if (_yLabel != null)
                 YLabel = _yLabel;
-            else YLabel = y.ToString();
+            //Need to set this to + 1 here as the console needs to print starting from 1 not 0
+            else YLabel = (y + 1).ToString();
 
             Id = XLabel + YLabel;
         }
@@ -23,7 +24,6 @@
         public int YPos { get; }
         public string XLabel { get; }
         public string YLabel { get; }
-
         public bool IsActive { get; set; }
 
         public enum State

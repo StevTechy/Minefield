@@ -40,7 +40,7 @@ namespace Minefield.App
             {
                 for (var y = 0; y < _boardHeight; y++)
                 {
-                    tiles[x, y] = new Tile(x, y + 1, _boardLabelMap[x]);
+                    tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
                 }
             }
 
@@ -61,18 +61,18 @@ namespace Minefield.App
 
         public void MoveUp()
         {
-            if (_currentTile.YPos < _boardHeight)
+            if (_currentTile.YPos < _boardHeight - 1)
             {
-                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos];
+                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos + 1];
                 Redraw();
             }
         }
 
         public void MoveDown()
         {
-            if (_currentTile.YPos > 1)
+            if (_currentTile.YPos > 0)
             {
-                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos - 2];
+                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos - 1];
                 Redraw();
             }
         }
@@ -81,7 +81,7 @@ namespace Minefield.App
         {
             if (_currentTile.XPos > 0)
             {
-                _currentTile = _tiles[_currentTile.XPos - 1, _currentTile.YPos - 1];
+                _currentTile = _tiles[_currentTile.XPos - 1, _currentTile.YPos];
                 Redraw();
             }
         }
@@ -90,7 +90,7 @@ namespace Minefield.App
         {
             if (_currentTile.XPos < _boardWidth - 1)
             {
-                _currentTile = _tiles[_currentTile.XPos + 1, _currentTile.YPos - 1];
+                _currentTile = _tiles[_currentTile.XPos + 1, _currentTile.YPos];
                 Redraw();
             }
         }

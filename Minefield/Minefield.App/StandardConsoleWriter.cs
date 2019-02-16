@@ -15,11 +15,11 @@ namespace Minefield.App
             Console.CursorVisible = false;
 
             var width = tiles.GetLength(0);
-            var height = tiles.GetLength(1);
+            var height = tiles.GetLength(1) - 1;
 
             Console.WriteLine();
 
-            for (var y = height - 1; y >= 0; y--)
+            for (var y = height; y >= 0; y--)
             {
                 Console.Write(" ");
                 Console.Write(tiles[0, y].YLabel);
