@@ -40,6 +40,13 @@ namespace Minefield.App
             return new Random().Next(min, max);
         }
 
+        /// <summary>
+        /// Generates 2D array of tiles which represent each tile on the chessboard
+        /// </summary>
+        /// <param name="boardWidth">The width of the board, determines how many tiles are added on X axis</param>
+        /// <param name="boardHeight">The height of the board, determiens how many tiles are added on Y axis</param>
+        /// <param name="startPosX">Determines the start position for the current tile</param>
+        /// <returns></returns>
         public ITile[,] GenerateTiles(int boardWidth, int boardHeight, int startPosX = 0)
         {
             var tiles = new ITile[boardWidth, boardHeight];
@@ -74,6 +81,11 @@ namespace Minefield.App
             return new FinishTile(endPosX, boardHeight - 1, _boardLabelMap[endPosX]);
         }
 
+        /// <summary>
+        /// Used as a wrapper method to prepare the board for usage
+        /// </summary>
+        /// <param name="width">The width of the board, determines amount of tiles added on X axis</param>
+        /// <param name="height">The height of the board, determines amount of tiles added on Y axis</param>
         public void Setup(int width, int height)
         {
             _boardWidth = width;
@@ -162,6 +174,9 @@ namespace Minefield.App
             return _finishTile;
         }
         
+        /// <summary>
+        /// Used to determine how close the player is to a mine tile
+        /// </summary>
         public void GetMineProximity()
         {
             int xPos = _currentTile.GetXPos();

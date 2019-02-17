@@ -57,6 +57,9 @@ namespace Minefield.Tests
             Assert.Equal("C8", tile.GetId());
         }
 
+        /// <summary>
+        /// Check current tile gets changed correctly for each direction
+        /// </summary>
         [Fact]
         public void ShiftTile()
         {
