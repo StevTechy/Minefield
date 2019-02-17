@@ -14,7 +14,6 @@ namespace Minefield.App
         private int _boardWidth;
         private int _boardHeight;
         private const int _chanceOfMine = 6;
-        private const int _startPosX = 3;
         private const int _startPosY = 0;
         private const int _endPosY = 7;
 
@@ -25,10 +24,15 @@ namespace Minefield.App
 
         public void Setup(int width, int height)
         {
+            var rnd = new Random();
+
             _boardWidth = width;
             _boardHeight = height;
 
-            var tiles = new Tile[_boardWidth, _boardHeight];
+            var startPosX = rnd.Next(0, _boardWidth);
+            var endPosX = rnd.Next(0, _boardWidth);
+
+            _tiles = new Tile[_boardWidth, _boardHeight];
 
             _boardLabelMap = new Dictionary<int, string>()
             {
@@ -41,7 +45,7 @@ namespace Minefield.App
                 { 24, "Y"}, { 25, "Z"}
             };
 
-            var rnd = new Random();
+            
 
             for (var x = 0; x < _boardWidth; x++)
             {
@@ -51,27 +55,22 @@ namespace Minefield.App
                     var roll = rnd.Next(1, _chanceOfMine + 1);
                     var rolledMine = roll == _chanceOfMine ? true : false;
 
-                    if (x == _startPosX & y == _startPosY || !rolledMine)
+                    if (x == startPosX & y == _startPosY || !rolledMine)
                     {
-                        tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
+                        _tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
                     }
                     else
                     {
-                        tiles[x, y] = new MineTile(x, y, _boardLabelMap[x]);
+                        _tiles[x, y] = new MineTile(x, y, _boardLabelMap[x]);
                     }
                 }
             }
 
-            _tiles = tiles;
-
             //Set finish tile
-            var randomX = rnd.Next(0, _boardWidth);
-            _finishTile = new FinishTile(randomX, _boardHeight, _boardLabelMap[randomX]);
-            _tiles[randomX, _endPosY] = _finishTile;
-
-            //Set current tile
-            randomX = rnd.Next(0, _boardWidth);
-            _currentTile = tiles[randomX, _startPosY];
+            _finishTile = new FinishTile(endPosX, _boardHeight, _boardLabelMap[endPosX]);
+            _tiles[endPosX, _endPosY] = _finishTile;
+            
+            _currentTile = _tiles[startPosX, _startPosY];
 
             Redraw();
         }
