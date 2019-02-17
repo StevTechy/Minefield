@@ -6,5 +6,9 @@
         void MoveDown();
         void MoveLeft();
         void MoveRight();
+        void ReduceLives(int numOfLives);
+        int GetMovesTaken();
+        bool Alive();
+        bool Finished();
     }
 }

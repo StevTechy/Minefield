@@ -10,7 +10,8 @@ namespace Minefield.App
 
         public override void Activate(IPlayer player, IRenderer renderer)
         {
-
+            player.ReduceLives(1);
+            renderer.DrawHitByMine();
         }
     }
 }

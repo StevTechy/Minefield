@@ -10,7 +10,7 @@ namespace Minefield.App
             Console.Clear();
         }
 
-        public void DrawGrid(ITile[,] tiles, ITile currentTile)
+        public void DrawGrid(ITile[,] tiles, ITile currentTile, ITile finishTile)
         {
             Console.CursorVisible = false;
 
@@ -26,12 +26,16 @@ namespace Minefield.App
                 Console.Write(" ");
                 for (var x = 0; x < width; x++)
                 {
-                    Console.Write(tiles[x, y].GetId() == currentTile.GetId() ? "[x]" : "[ ]");
-                }
+                    if (tiles[x, y] == currentTile)
+                        Console.Write("[x]");
+                    else if (tiles[x, y] == finishTile)
+                        Console.Write("[o]");
+                    else
+                        Console.Write("[ ]");
+                   }
                 Console.WriteLine();
             }
             
-
             Console.Write("    ");
 
             for (var x = 0; x < width; x++)
@@ -49,8 +53,13 @@ namespace Minefield.App
             Console.WriteLine($" Lives left: {livesLeft}");
         }
 
+        public void DrawHitByMine()
+        {
+            Console.WriteLine(" ****You've been hit by a mine!****");
+        }
+
         public void DrawCurrentPos(ITile currentTile)
-        { 
+        {
             Console.WriteLine($" Current position: {currentTile.GetId()}");
         }
 
@@ -66,14 +75,28 @@ namespace Minefield.App
 
         public void DrawFinalScore(int score)
         {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine(" ***WELL DONE!***");
+            Console.WriteLine(" You reached the end with lives left");
             Console.WriteLine($" Final Score: {score}");
+            Console.WriteLine(" Press Enter to play again, or Escape to exit");
+        }
+
+        public void DrawGameOver()
+        {
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine(" ***GAME OVER!***");
+            Console.WriteLine(" You have ran out of lives!");
+            Console.WriteLine(" Press Enter to play again, or Escape to exit");
         }
 
         public void DrawHeader()
         {
             Console.WriteLine();
             Console.WriteLine(" Welcome to Minefield! Reach the end while avoiding the mines");
-            Console.WriteLine(" Press Enter to exit");
+            Console.WriteLine(" Press Enter to restart, or Escape to exit");
         }
     }
 }

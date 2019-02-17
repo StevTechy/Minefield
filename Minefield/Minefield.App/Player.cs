@@ -53,6 +53,33 @@ namespace Minefield.App
             _movesTaken++;
             _renderer.DrawMoves(_movesTaken);
             _renderer.DrawProximity();
+            _board.GetActiveTile().Activate(this, _renderer);
+
+            if (!Finished())
+                _renderer.DrawLives(_livesRemaining);
+
+            if (_livesRemaining == 0)
+                _renderer.DrawGameOver();
+        }
+
+        public void ReduceLives(int numOfLives)
+        {
+            _livesRemaining -= numOfLives;
+        }
+
+        public int GetMovesTaken()
+        {
+            return _movesTaken;
+        }
+
+        public bool Alive()
+        {
+            return _livesRemaining > 0 ? true : false;
+        }
+
+        public bool Finished()
+        {
+            return _board.GetActiveTile() == _board.GetFinishedTile();
         }
     }
 }

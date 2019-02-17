@@ -7,9 +7,9 @@ namespace Minefield.App
     {
         public void Start(IBoard board, IPlayer player)
         {
-            board.Setup(8,8);
+            board.Setup(8, 8);
 
-            while (true)
+            while (player.Alive() && !player.Finished())
             {
                 var input = Console.ReadKey();
 
@@ -40,17 +40,38 @@ namespace Minefield.App
                             break;
                         }
                     case ConsoleKey.Enter:
+                        {
+                            var renderer = new StandardConsoleWriter();
+                            board = new Chessboard(renderer);
+                            Start(board, new Player(board, renderer));
+                            break;
+                        }
                     case ConsoleKey.Escape:
                         {
                             return;
                         }
                 }
             }
+
+            End();
         }
 
         public void End()
         {
-            throw new NotImplementedException();
+            var input = Console.ReadKey();
+
+            switch (input.Key)
+            {
+                case ConsoleKey.Enter:
+                    {
+                        var renderer = new StandardConsoleWriter();
+                        var board = new Chessboard(renderer);
+                        Start(board, new Player(board, renderer));
+                        break;
+                    }
+                case ConsoleKey.Escape: { return; }
+                default: { End(); break; }
+            }
         }
     }
 }

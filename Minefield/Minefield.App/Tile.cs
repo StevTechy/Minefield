@@ -5,13 +5,15 @@ namespace Minefield.App
     public class Tile : ITile
     {
         private string _id;
+        private int _xPos;
+        private int _yPos;
         private string _xLabel;
         private string _yLabel;
 
         public Tile(int x, int y, string xLabel = null, string yLabel = null)
         {
-            XPos = x;
-            YPos = y;
+            _xPos = x;
+            _yPos = y;
 
             if (xLabel != null)
                 _xLabel = xLabel;
@@ -26,8 +28,8 @@ namespace Minefield.App
         }
 
         public string Id { get; }
-        public int XPos { get; }
-        public int YPos { get; }
+        public int GetXPos() { return _xPos; }
+        public int GetYPos() { return _yPos; }
         public string GetXLabel() { return _xLabel; }
         public string GetYLabel() { return _yLabel; }
         public string GetId() { return _id; }
