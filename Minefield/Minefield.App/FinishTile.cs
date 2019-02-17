@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Minefield.App.Interfaces;
+﻿using Minefield.App.Interfaces;
 
 namespace Minefield.App
 {

@@ -45,8 +45,6 @@ namespace Minefield.App
                 { 24, "Y"}, { 25, "Z"}
             };
 
-            
-
             for (var x = 0; x < _boardWidth; x++)
             {
                 for (var y = 0; y < _boardHeight; y++)
@@ -136,6 +134,21 @@ namespace Minefield.App
         {
             return _finishTile;
         }
+        
+        public void GetMineProximity()
+        {
+            int xPos = _currentTile.GetXPos();
+            int yPos = _currentTile.GetYPos();
+
+            if (CheckMineTiles(xPos, yPos, (int)MineProximity.VeryClose))
+            {
+                _renderer.DrawProximity((int)MineProximity.VeryClose);
+            }
+            else if(CheckMineTiles(xPos, yPos, (int)MineProximity.Close))
+            {
+                _renderer.DrawProximity((int)MineProximity.Close);
+            }
+        }
 
         private bool CheckMineTiles(int xPos, int yPos, int distance)
         {
@@ -150,21 +163,6 @@ namespace Minefield.App
             if (xPos >= 0 && xPos < _boardWidth && yPos > 0 && yPos < _boardHeight)
                 return _tiles[xPos, yPos] is MineTile;
             return false;
-        }
-
-        public void GetMineProximity()
-        {
-            int xPos = _currentTile.GetXPos();
-            int yPos = _currentTile.GetYPos();
-
-            if (CheckMineTiles(xPos, yPos, (int)MineProximity.VeryClose))
-            {
-                _renderer.DrawProximity((int)MineProximity.VeryClose);
-            }
-            else if(CheckMineTiles(xPos, yPos, (int)MineProximity.Close))
-            {
-                _renderer.DrawProximity((int)MineProximity.Close);
-            }
         }
 
         public enum MineProximity

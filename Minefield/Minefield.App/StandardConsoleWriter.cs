@@ -10,6 +10,13 @@ namespace Minefield.App
             Console.Clear();
         }
 
+        public void DrawHeader()
+        {
+            Console.WriteLine();
+            Console.WriteLine(" Welcome to Minefield! Reach the end while avoiding the mines");
+            Console.WriteLine(" Press Enter to restart, or Escape to exit");
+        }
+
         public void DrawGrid(ITile[,] tiles, ITile currentTile, ITile finishTile)
         {
             Console.CursorVisible = false;
@@ -102,13 +109,6 @@ namespace Minefield.App
             Console.WriteLine(" ***GAME OVER!***");
             Console.WriteLine(" You have ran out of lives!");
             Console.WriteLine(" Press Enter to play again, or Escape to exit");
-        }
-
-        public void DrawHeader()
-        {
-            Console.WriteLine();
-            Console.WriteLine(" Welcome to Minefield! Reach the end while avoiding the mines");
-            Console.WriteLine(" Press Enter to restart, or Escape to exit");
         }
     }
 }
