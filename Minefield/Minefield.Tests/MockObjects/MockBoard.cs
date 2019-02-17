@@ -14,6 +14,16 @@ namespace Minefield.Tests.MockObjects
         private int _boardWidth;
         private int _boardHeight;
 
+        public ITile GenerateFinishTile(int endPosX, int boardHeight)
+        {
+            return new Tile(0, 0);
+        }
+
+        public ITile[,] GenerateTiles(int boardWidth, int boardHeight, int startPosX = 0)
+        {
+            return new Tile[0, 0];
+        }
+
         public ITile GetActiveTile()
         {
             return new Tile(0, 0);
@@ -26,6 +36,11 @@ namespace Minefield.Tests.MockObjects
 
         public void GetMineProximity()
         {
+        }
+
+        public void SetActiveTile(int xPos, int yPos)
+        {
+
         }
 
         public void Setup(int width, int height)

@@ -6,6 +6,9 @@ namespace Minefield.Tests
 {
     public class PlayerTests
     {
+        /// <summary>
+        /// Check moves increment when playerm moves
+        /// </summary>
         [Fact]
         public void Move()
         {
@@ -16,6 +19,10 @@ namespace Minefield.Tests
             Assert.Equal(1, player.GetMovesTaken());
         }
 
+
+        /// <summary>
+        /// Check lives decrement when player gets hit
+        /// </summary>
         [Fact]
         public void ReduceLives()
         {
@@ -28,6 +35,9 @@ namespace Minefield.Tests
             Assert.Equal(startingLives - livesToDecrement, player.GetLivesLeft());
         }
 
+        /// <summary>
+        /// Check player alive/not alive based on number of lives is working
+        /// </summary>
         [Fact]
         public void CheckIfAlive()
         {

@@ -13,27 +13,16 @@ namespace Minefield.App
         private Dictionary<int, string> _boardLabelMap;
         private int _boardWidth;
         private int _boardHeight;
-        private const int _chanceOfMine = 6;
+        private const int _randomNumberMatch = 6;
         private const int _startPosY = 0;
-        private const int _endPosY = 7;
 
         public Chessboard(IRenderer renderer)
         {
             _renderer = renderer;
         }
 
-        public void Setup(int width, int height)
+        private void GenerateBoardLabelMap()
         {
-            var rnd = new Random();
-
-            _boardWidth = width;
-            _boardHeight = height;
-
-            var startPosX = rnd.Next(0, _boardWidth);
-            var endPosX = rnd.Next(0, _boardWidth);
-
-            _tiles = new Tile[_boardWidth, _boardHeight];
-
             _boardLabelMap = new Dictionary<int, string>()
             {
                 { 0, "A"}, { 1, "B"}, { 2, "C"}, { 3, "D"},
@@ -44,32 +33,65 @@ namespace Minefield.App
                 { 20, "U"}, { 21, "V"}, { 22, "W"}, { 23, "X"},
                 { 24, "Y"}, { 25, "Z"}
             };
+        }
 
-            for (var x = 0; x < _boardWidth; x++)
+        private int GetRandomNumber(int min = 0, int max = 0)
+        {
+            return new Random().Next(min, max);
+        }
+
+        public ITile[,] GenerateTiles(int boardWidth, int boardHeight, int startPosX = 0)
+        {
+            var tiles = new ITile[boardWidth, boardHeight];
+
+            if(_boardLabelMap == null) GenerateBoardLabelMap();
+
+            for (var x = 0; x < boardWidth; x++)
             {
-                for (var y = 0; y < _boardHeight; y++)
+                for (var y = 0; y < boardHeight; y++)
                 {
                     //Allocate mines randomly
-                    var roll = rnd.Next(1, _chanceOfMine + 1);
-                    var rolledMine = roll == _chanceOfMine ? true : false;
+                    var rolledMine = GetRandomNumber(1, _randomNumberMatch + 1) == _randomNumberMatch ? true : false;
 
                     if (x == startPosX & y == _startPosY || !rolledMine)
                     {
-                        _tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
+                        tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
                     }
                     else
                     {
-                        _tiles[x, y] = new MineTile(x, y, _boardLabelMap[x]);
+                        tiles[x, y] = new MineTile(x, y, _boardLabelMap[x]);
                     }
                 }
             }
 
-            //Set finish tile
-            _finishTile = new FinishTile(endPosX, _boardHeight, _boardLabelMap[endPosX]);
-            _tiles[endPosX, _endPosY] = _finishTile;
-            
+            return tiles;
+        }
+
+        public ITile GenerateFinishTile(int endPosX, int boardHeight)
+        {
+            if (_boardLabelMap == null) GenerateBoardLabelMap();
+
+            return new FinishTile(endPosX, boardHeight - 1, _boardLabelMap[endPosX]);
+        }
+
+        public void Setup(int width, int height)
+        {
+            _boardWidth = width;
+            _boardHeight = height;
+
+            var startPosX = GetRandomNumber(0, _boardWidth);
+            var endPosX = GetRandomNumber(0, _boardWidth);
+            var endPosY = height - 1;
+
+            _tiles = GenerateTiles(_boardWidth, _boardHeight, startPosX);
+
+            //Set start tile
             _currentTile = _tiles[startPosX, _startPosY];
 
+            //Set finish tile
+            _finishTile = GenerateFinishTile(endPosX, _boardHeight);
+            _tiles[endPosX, endPosY] = _finishTile;
+            
             Redraw();
         }
 
@@ -123,6 +145,11 @@ namespace Minefield.App
                 return true;
             }
             return false;
+        }
+
+        public void SetActiveTile(int xPos, int yPos)
+        {
+            _currentTile = _tiles[xPos, yPos];
         }
 
         public ITile GetActiveTile()
