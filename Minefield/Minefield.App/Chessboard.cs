@@ -50,7 +50,7 @@ namespace Minefield.App
                     //Allocate mines randomly
                     var roll = rnd.Next(1, _chanceOfMine + 1);
                     var rolledMine = roll == _chanceOfMine ? true : false;
-                    
+
                     if (x == _startPosX & y == _startPosY || !rolledMine)
                     {
                         tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
@@ -136,6 +136,42 @@ namespace Minefield.App
         public ITile GetFinishedTile()
         {
             return _finishTile;
+        }
+
+        private bool CheckMineTiles(int xPos, int yPos, int distance)
+        {
+            return CheckMineTile(xPos + distance, yPos)
+                || CheckMineTile(xPos - distance, yPos)
+                || CheckMineTile(xPos, yPos + distance)
+                || CheckMineTile(xPos, yPos - distance);
+        }
+
+        private bool CheckMineTile(int xPos, int yPos)
+        {
+            if (xPos >= 0 && xPos < _boardWidth && yPos > 0 && yPos < _boardHeight)
+                return _tiles[xPos, yPos] is MineTile;
+            return false;
+        }
+
+        public void GetMineProximity()
+        {
+            int xPos = _currentTile.GetXPos();
+            int yPos = _currentTile.GetYPos();
+
+            if (CheckMineTiles(xPos, yPos, (int)MineProximity.VeryClose))
+            {
+                _renderer.DrawProximity((int)MineProximity.VeryClose);
+            }
+            else if(CheckMineTiles(xPos, yPos, (int)MineProximity.Close))
+            {
+                _renderer.DrawProximity((int)MineProximity.Close);
+            }
+        }
+
+        public enum MineProximity
+        {
+            VeryClose = 1,
+            Close = 2
         }
     }
 }

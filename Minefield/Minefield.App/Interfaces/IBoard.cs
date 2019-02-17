@@ -9,6 +9,7 @@ namespace Minefield.App
         bool ShiftTileDown();
         bool ShiftTileLeft();
         bool ShiftTileRight();
+        void GetMineProximity();
         ITile GetActiveTile();
         ITile GetFinishedTile();
     }

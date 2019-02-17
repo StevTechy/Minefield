@@ -32,10 +32,10 @@ namespace Minefield.App
                         Console.Write("[o]");
                     else
                         Console.Write("[ ]");
-                   }
+                }
                 Console.WriteLine();
             }
-            
+
             Console.Write("    ");
 
             for (var x = 0; x < width; x++)
@@ -68,9 +68,21 @@ namespace Minefield.App
             Console.WriteLine($" Moves taken: {movesTaken}");
         }
 
-        public void DrawProximity()
+        public void DrawProximity(int distance)
         {
-            Console.WriteLine($" Proximity to mine: N/A");
+            switch (distance)
+            {
+                case 1:
+                    {
+                        Console.WriteLine(" You are very close to a mine");
+                        break;
+                    }
+                case 2:
+                    {
+                        Console.WriteLine(" You are close to a mine");
+                        break;
+                    }
+            }
         }
 
         public void DrawFinalScore(int score)

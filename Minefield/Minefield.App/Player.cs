@@ -52,7 +52,7 @@ namespace Minefield.App
         {
             _movesTaken++;
             _renderer.DrawMoves(_movesTaken);
-            _renderer.DrawProximity();
+            _board.GetMineProximity();
             _board.GetActiveTile().Activate(this, _renderer);
 
             if (!Finished())

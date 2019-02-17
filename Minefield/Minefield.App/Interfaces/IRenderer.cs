@@ -8,7 +8,7 @@
         void DrawCurrentPos(ITile currentTile);
         void DrawMoves(int movesTaken);
         void DrawHitByMine();
-        void DrawProximity();
+        void DrawProximity(int distance);
         void DrawGameOver();
         void DrawFinalScore(int score);
         void DrawHeader();
