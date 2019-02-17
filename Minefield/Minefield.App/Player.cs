@@ -55,11 +55,9 @@ namespace Minefield.App
             _board.GetMineProximity();
             _board.GetActiveTile().Activate(this, _renderer);
 
-            if (!Finished())
-                _renderer.DrawLives(_livesRemaining);
+            if (!Finished()) _renderer.DrawLives(_livesRemaining);
 
-            if (_livesRemaining == 0)
-                _renderer.DrawGameOver();
+            if (_livesRemaining == 0) _renderer.DrawGameOver();
         }
 
         public void ReduceLives(int numOfLives)
@@ -70,6 +68,11 @@ namespace Minefield.App
         public int GetMovesTaken()
         {
             return _movesTaken;
+        }
+
+        public int GetLivesLeft()
+        {
+            return _livesRemaining;
         }
 
         public bool Alive()
