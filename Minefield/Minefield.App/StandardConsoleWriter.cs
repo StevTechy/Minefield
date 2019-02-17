@@ -98,7 +98,7 @@ namespace Minefield.App
             Console.WriteLine();
             Console.WriteLine(" ***WELL DONE!***");
             Console.WriteLine(" You reached the end with lives left");
-            Console.WriteLine($" Final Score: {score}");
+            Console.WriteLine($" Final Score (moves taken): {score}");
             Console.WriteLine(" Press Enter to play again, or Escape to exit");
         }
 

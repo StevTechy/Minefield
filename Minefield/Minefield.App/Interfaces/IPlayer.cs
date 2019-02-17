@@ -9,6 +9,7 @@
         void ReduceLives(int numOfLives);
         int GetMovesTaken();
         bool Alive();
+        void Reset();
         bool Finished();
     }
 }

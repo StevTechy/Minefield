@@ -53,5 +53,26 @@ namespace Minefield.Tests
 
             Assert.False(player.Alive());
         }
+
+        /// <summary>
+        /// Check that lives and moves reset when player resets
+        /// </summary>
+        [Fact]
+        public void Reset()
+        {
+            int maxLives = 3, livesToDecrement = 1;
+            var player = new Player(new MockBoard(), new MockRenderer());
+
+            player.ReduceLives(livesToDecrement);
+            player.MoveDown();
+
+            Assert.NotEqual(maxLives, player.GetLivesLeft());
+            Assert.NotEqual(0, player.GetMovesTaken());
+
+            player.Reset();
+
+            Assert.Equal(maxLives, player.GetLivesLeft());
+            Assert.Equal(0, player.GetMovesTaken());
+        }
     }
 }

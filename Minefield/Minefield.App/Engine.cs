@@ -41,9 +41,8 @@ namespace Minefield.App
                         }
                     case ConsoleKey.Enter:
                         {
-                            var renderer = new StandardConsoleWriter();
-                            board = new Chessboard(renderer);
-                            Start(board, new Player(board, renderer));
+                            board.Setup(8, 8);
+                            player.Reset();
                             break;
                         }
                     case ConsoleKey.Escape:

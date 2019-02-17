@@ -7,6 +7,7 @@ namespace Minefield.App
         IBoard _board;
         IRenderer _renderer;
         private int _movesTaken = 0;
+        private int _maxLives;
         private int _livesRemaining;
 
         public Player(IBoard board, IRenderer renderer, int lives = 3)
@@ -14,6 +15,7 @@ namespace Minefield.App
             _board = board;
             _renderer = renderer;
             _livesRemaining = lives;
+            _maxLives = lives;
         }
 
         public void MoveUp()
@@ -78,6 +80,12 @@ namespace Minefield.App
         public bool Alive()
         {
             return _livesRemaining > 0 ? true : false;
+        }
+
+        public void Reset()
+        {
+            _livesRemaining = _maxLives;
+            _movesTaken = 0;
         }
 
         public bool Finished()
