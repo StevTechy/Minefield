@@ -2,7 +2,7 @@
 {
     public interface IEngine
     {
-        void Start(IBoard board);
+        void Start(IBoard board, IPlayer player);
 
         void End();
     }

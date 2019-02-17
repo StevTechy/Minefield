@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace Minefield.App
+﻿namespace Minefield.App
 {
     class Program
     {
         static void Main(string[] args)
         {
-            new Engine().Start(new Chessboard(new StandardConsoleWriter()));
+            var renderer = new StandardConsoleWriter();
+            var board = new Chessboard(renderer);
+            new Engine().Start(board, new Player(board, renderer));
         }
     }
 }

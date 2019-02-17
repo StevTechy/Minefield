@@ -1,6 +1,8 @@
-﻿namespace Minefield.App
+﻿using Minefield.App.Interfaces;
+
+namespace Minefield.App
 {
-    public class Tile
+    public class Tile : ITile
     {
         public Tile(int x, int y, string _xLabel = null, string _yLabel = null)
         {
@@ -24,13 +26,10 @@
         public int YPos { get; }
         public string XLabel { get; }
         public string YLabel { get; }
-        public bool IsActive { get; set; }
 
-        public enum State
+        public virtual void Activate(IPlayer player, IRenderer renderer)
         {
-            Current,
-            Goal,
-            Mine
+
         }
     }
 

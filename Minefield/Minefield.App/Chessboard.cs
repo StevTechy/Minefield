@@ -55,44 +55,50 @@ namespace Minefield.App
             _renderer.DrawHeader();
             _renderer.DrawGrid(_tiles, _currentTile);
             _renderer.DrawCurrentPos(_currentTile);
-            _renderer.DrawLives(5);
-            _renderer.DrawMoves(5);
         }
 
-        public void MoveUp()
-        {
-            if (_currentTile.YPos < _boardHeight - 1)
-            {
-                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos + 1];
-                Redraw();
-            }
-        }
-
-        public void MoveDown()
-        {
-            if (_currentTile.YPos > 0)
-            {
-                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos - 1];
-                Redraw();
-            }
-        }
-
-        public void MoveLeft()
+        public bool ShiftTileLeft()
         {
             if (_currentTile.XPos > 0)
             {
                 _currentTile = _tiles[_currentTile.XPos - 1, _currentTile.YPos];
                 Redraw();
+                return true;
             }
+            return false;
         }
 
-        public void MoveRight()
+        public bool ShiftTileRight()
         {
             if (_currentTile.XPos < _boardWidth - 1)
             {
                 _currentTile = _tiles[_currentTile.XPos + 1, _currentTile.YPos];
                 Redraw();
+                return true;
             }
+            return false;
+        }
+
+        public bool ShiftTileUp()
+        {
+            if (_currentTile.YPos < _boardHeight - 1)
+            {
+                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos + 1];
+                Redraw();
+                return true;
+            }
+            return false;
+        }
+
+        public bool ShiftTileDown()
+        {
+            if (_currentTile.YPos > 0)
+            {
+                _currentTile = _tiles[_currentTile.XPos, _currentTile.YPos - 1];
+                Redraw();
+                return true;
+            }
+            return false;
         }
     }
 }
