@@ -10,7 +10,7 @@ namespace Minefield.App
             Console.Clear();
         }
 
-        public void DrawGrid(Tile[,] tiles, Tile currentTile)
+        public void DrawGrid(ITile[,] tiles, ITile currentTile)
         {
             Console.CursorVisible = false;
 
@@ -22,11 +22,11 @@ namespace Minefield.App
             for (var y = height; y >= 0; y--)
             {
                 Console.Write(" ");
-                Console.Write(tiles[0, y].YLabel);
+                Console.Write(tiles[0, y].GetYLabel());
                 Console.Write(" ");
                 for (var x = 0; x < width; x++)
                 {
-                    Console.Write(tiles[x, y].Id == currentTile.Id ? "[x]" : "[ ]");
+                    Console.Write(tiles[x, y].GetId() == currentTile.GetId() ? "[x]" : "[ ]");
                 }
                 Console.WriteLine();
             }
@@ -36,7 +36,7 @@ namespace Minefield.App
 
             for (var x = 0; x < width; x++)
             {
-                Console.Write(tiles[x, 0].XLabel);
+                Console.Write(tiles[x, 0].GetXLabel());
                 Console.Write("  ");
             }
 
@@ -49,9 +49,9 @@ namespace Minefield.App
             Console.WriteLine($" Lives left: {livesLeft}");
         }
 
-        public void DrawCurrentPos(Tile currentTile)
+        public void DrawCurrentPos(ITile currentTile)
         { 
-            Console.WriteLine($" Current position: {currentTile.Id}");
+            Console.WriteLine($" Current position: {currentTile.GetId()}");
         }
 
         public void DrawMoves(int movesTaken)

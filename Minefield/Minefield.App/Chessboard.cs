@@ -1,4 +1,5 @@
 ﻿using Minefield.App.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace Minefield.App
@@ -11,6 +12,9 @@ namespace Minefield.App
         private Dictionary<int, string> _boardLabelMap;
         private int _boardWidth;
         private int _boardHeight;
+        private const int _chanceOfMine = 6;
+        private const int _startPosX = 3;
+        private const int _startPosY = 0;
 
         public Chessboard(IRenderer renderer)
         {
@@ -36,16 +40,28 @@ namespace Minefield.App
                 { 7, "H"},
             };
 
+            var rnd = new Random();
+
             for (var x = 0; x < _boardWidth; x++)
             {
                 for (var y = 0; y < _boardHeight; y++)
                 {
-                    tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
+                    var roll = rnd.Next(1, _chanceOfMine + 1);
+                    var rolledMine = roll == _chanceOfMine ? true : false;
+                    
+                    if (x == _startPosX & y == _startPosY || !rolledMine)
+                    {
+                        tiles[x, y] = new Tile(x, y, _boardLabelMap[x]);
+                    }
+                    else
+                    {
+                        tiles[x, y] = new MineTile(x, y, _boardLabelMap[x]);
+                    }
                 }
             }
 
             _tiles = tiles;
-            _currentTile = tiles[3,0];
+            _currentTile = tiles[_startPosX, _startPosY];
             Redraw();
         }
 

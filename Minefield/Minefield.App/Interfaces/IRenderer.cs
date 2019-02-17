@@ -3,9 +3,9 @@
     public interface IRenderer
     {
         void Clear();
-        void DrawGrid(Tile[,] tiles, Tile currentTile);
+        void DrawGrid(ITile[,] tiles, ITile currentTile);
         void DrawLives(int livesLeft);
-        void DrawCurrentPos(Tile currentTile);
+        void DrawCurrentPos(ITile currentTile);
         void DrawMoves(int movesTaken);
         void DrawProximity();
         void DrawFinalScore(int score);
